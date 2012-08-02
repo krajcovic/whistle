@@ -33,8 +33,8 @@ public class WhistleActivity extends Activity {
 		stopButton = (Button) findViewById(R.id.buttonStop);
 		stopButton.setEnabled(false);
 		
-		minText.setText(1);
-		maxText.setText(10);
+		minText.setText(Integer.toString(1));
+		maxText.setText(Integer.toString(10));
 
 		startButton.setOnClickListener(new OnClickListener() {
 

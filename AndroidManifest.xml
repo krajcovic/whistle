@@ -12,12 +12,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".WhistleActivity"
+            android:name=".MenuActivity"
             android:label="@string/title_activity_whistle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".WhistleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_EDIT" />
+
+                <category android:name="android.intent.category.CATEGORY_BROWSABLE" />
             </intent-filter>
         </activity>
     </application>
