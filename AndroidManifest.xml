@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WhistleActivity"
+            android:name=".RandomActivity"
             android:exported="false"
             android:label="@string/title_activity_menu" >
             <intent-filter>

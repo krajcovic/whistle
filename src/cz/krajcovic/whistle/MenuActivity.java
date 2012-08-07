@@ -20,7 +20,7 @@ public class MenuActivity extends Activity {
 		buttonRandom.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				Intent intent = new Intent(MenuActivity.this, WhistleActivity.class);
+				Intent intent = new Intent(MenuActivity.this, RandomActivity.class);
 	            startActivity(intent); 
 			}
 

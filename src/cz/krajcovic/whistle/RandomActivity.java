@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class WhistleActivity extends Activity {
+public class RandomActivity extends Activity {
 
 	private static final String TAG = "WhistleActivity";
 
