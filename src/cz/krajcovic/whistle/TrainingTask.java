@@ -48,7 +48,18 @@ public class TrainingTask extends AsyncTask<TrainingParams, Integer, Integer> {
 
 			try {
 				while (true) {
-					wait(getRandom(params[0]) * 1000);
+					switch(params[0].getType())
+					{
+					case Random:
+						wait(getRandom(params[0]) * 1000);
+						break;
+					case Period:
+						wait(params[0].getPeriod() * 1000);
+						break;
+					case Cycle:
+						
+						break;
+					}
 					playPool(params[0]);
 					counter++;
 

@@ -1,21 +1,19 @@
 package cz.krajcovic.whistle;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class RandomActivity extends Activity {
+public class PeriodActivity extends Activity {
 
 	private static final String TAG = "RandomActivity";
 
-	private EditText minText;
-	private EditText maxText;
+	private EditText periodText;
 
 	private Button startButton;
 	private Button stopButton;
@@ -23,35 +21,27 @@ public class RandomActivity extends Activity {
 	TrainingTask trainingTask;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_random);
 
-		minText = (EditText) findViewById(R.id.editTextMin);
-		maxText = (EditText) findViewById(R.id.editTextMax);
+		setContentView(R.layout.activity_period);
+
+		periodText = (EditText) findViewById(R.id.editTextPeriod);
+
 		startButton = (Button) findViewById(R.id.buttonStart);
 		stopButton = (Button) findViewById(R.id.buttonStop);
 		stopButton.setEnabled(false);
 
-		minText.setText(Integer.toString(1));
-		maxText.setText(Integer.toString(10));
+		periodText.setText(Integer.toString(20));
 
 		startButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				int min, max;
+				int period;
 				try {
-					min = minText.getText().toString().equals("") ? 0 : Integer
-							.parseInt(minText.getText().toString());
-					max = maxText.getText().equals("") ? 0 : Integer
-							.parseInt(maxText.getText().toString());
-
-					if (min >= max) {
-						Toast.makeText(getApplicationContext(),
-								"Max have to bigger than min.",
-								Toast.LENGTH_SHORT).show();
-						return;
-					}
+					period = periodText.getText().toString().equals("") ? 0
+							: Integer.parseInt(periodText.getText().toString());
 
 				}
 
@@ -64,10 +54,9 @@ public class RandomActivity extends Activity {
 				}
 
 				TrainingParams params = new TrainingParams(
-						TrainingActivities.Random);
+						TrainingActivities.Period);
 				params.setActivity((Activity) v.getContext());
-				params.setMin(min);
-				params.setMax(max);
+				params.setPeriod(period);
 
 				trainingTask = (TrainingTask) new TrainingTask()
 						.execute(params);
@@ -81,14 +70,7 @@ public class RandomActivity extends Activity {
 			public void onClick(View v) {
 				StopTask();
 			}
-
 		});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_whistle, menu);
-		return true;
 	}
 
 	@Override

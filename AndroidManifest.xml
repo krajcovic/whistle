@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_whistle" >
+            android:label="@string/title_activity_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,17 @@
         <activity
             android:name=".RandomActivity"
             android:exported="false"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_random" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_EDIT" />
+
+                <category android:name="android.intent.category.CATEGORY_BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PeriodActivity"
+            android:exported="false"
+            android:label="@string/title_activity_period" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_EDIT" />
 
