@@ -35,6 +35,16 @@ public class MenuActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		Button buttonCycle = (Button) findViewById(R.id.buttonCycle);
+		buttonCycle.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(MenuActivity.this,
+						CycleActivity.class);
+				startActivity(intent);
+			}
+		});
 
 	}
 

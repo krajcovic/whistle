@@ -10,6 +10,8 @@ public class TrainingParams {
 
 	private int min;
 	private int max;
+	private int active;
+	private int rest;
 
 	private int period;
 
@@ -55,5 +57,21 @@ public class TrainingParams {
 
 	public void setType(TrainingActivities type) {
 		this.type = type;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	public int getRest() {
+		return rest;
+	}
+
+	public void setRest(int rest) {
+		this.rest = rest;
 	}
 }

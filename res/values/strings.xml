@@ -12,5 +12,8 @@
     <string name="period">Period</string>
     <string name="cycle">Cycle</string>
     <string name="title_activity_period">Period generator</string>
+    <string name="active">Active</string>
+    <string name="rest">Rest</string>
+    <string name="title_activity_cycle">Cycle generator</string>
 
 </resources>

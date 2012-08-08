@@ -40,6 +40,16 @@
                 <category android:name="android.intent.category.CATEGORY_BROWSABLE" />
             </intent-filter>
         </activity>
+                <activity
+            android:name=".CycleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cycle" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_EDIT" />
+
+                <category android:name="android.intent.category.CATEGORY_BROWSABLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

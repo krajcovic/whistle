@@ -45,6 +45,8 @@ public class TrainingTask extends AsyncTask<TrainingParams, Integer, Integer> {
 
 			soundID = soundPool.load(params[0].getActivity(), R.raw.whistle01,
 					1);
+			
+			playPool(params[0]);
 
 			try {
 				while (true) {
@@ -57,10 +59,12 @@ public class TrainingTask extends AsyncTask<TrainingParams, Integer, Integer> {
 						wait(params[0].getPeriod() * 1000);
 						break;
 					case Cycle:
-						
+						wait(params[0].getActive() * 1000);
+						playPool(params[0]);
+						wait(params[0].getRest() * 1000);
 						break;
 					}
-					playPool(params[0]);
+
 					counter++;
 
 					if (isCancelled()) {
