@@ -1,5 +1,8 @@
 package cz.krajcovic.whistle;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +38,7 @@ public class MenuActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+
 		Button buttonCycle = (Button) findViewById(R.id.buttonCycle);
 		buttonCycle.setOnClickListener(new OnClickListener() {
 
@@ -46,6 +49,21 @@ public class MenuActivity extends Activity {
 			}
 		});
 
+		refreshAdMob();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refreshAdMob();
+	}
+
+	private void refreshAdMob() {
+		AdView mAdView = (AdView) findViewById(R.id.ad);
+
+		AdRequest adRequest = new AdRequest();
+		adRequest.addKeyword("sporting goods");
+		mAdView.loadAd(adRequest);
 	}
 
 }

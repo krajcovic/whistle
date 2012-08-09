@@ -15,5 +15,6 @@
     <string name="active">Active</string>
     <string name="rest">Rest</string>
     <string name="title_activity_cycle">Cycle generator</string>
+    <string name="admob_id">a150238fc7e55c8</string>
 
 </resources>
