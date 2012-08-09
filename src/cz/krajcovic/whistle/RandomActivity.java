@@ -15,7 +15,7 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class RandomActivity extends Activity {
+public class RandomActivity extends AdMobActivity {
 
 	private static final String TAG = "RandomActivity";
 
@@ -84,6 +84,7 @@ public class RandomActivity extends Activity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
+				refreshAdMob();
 			}
 		});
 
@@ -98,12 +99,6 @@ public class RandomActivity extends Activity {
 		refreshAdMob();
 	}
 	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		refreshAdMob();
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_whistle, menu);
@@ -123,13 +118,5 @@ public class RandomActivity extends Activity {
 			startButton.setEnabled(true);
 			stopButton.setEnabled(false);
 		}
-	}
-	
-	private void refreshAdMob() {
-		AdView mAdView = (AdView) findViewById(R.id.ad);
-
-		AdRequest adRequest = new AdRequest();
-		adRequest.addKeyword("sporting goods");
-		mAdView.loadAd(adRequest);
 	}
 }

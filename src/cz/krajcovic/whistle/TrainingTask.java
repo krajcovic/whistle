@@ -46,10 +46,10 @@ public class TrainingTask extends AsyncTask<TrainingParams, Integer, Integer> {
 			soundID = soundPool.load(params[0].getActivity(), R.raw.whistle01,
 					1);
 			
-			playPool(params[0]);
-
 			try {
 				while (true) {
+					playPool(params[0]);
+					
 					switch(params[0].getType())
 					{
 					case Random:

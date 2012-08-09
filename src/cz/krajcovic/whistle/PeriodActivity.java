@@ -1,8 +1,5 @@
 package cz.krajcovic.whistle;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -14,7 +11,7 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class PeriodActivity extends Activity {
+public class PeriodActivity extends AdMobActivity {
 
 	private static final String TAG = "RandomActivity";
 
@@ -73,6 +70,7 @@ public class PeriodActivity extends Activity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
+				refreshAdMob();
 			}
 		});
 
@@ -87,12 +85,6 @@ public class PeriodActivity extends Activity {
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		refreshAdMob();
-	}
-
-	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		StopTask();
@@ -105,13 +97,5 @@ public class PeriodActivity extends Activity {
 			startButton.setEnabled(true);
 			stopButton.setEnabled(false);
 		}
-	}
-	
-	private void refreshAdMob() {
-		AdView mAdView = (AdView) findViewById(R.id.ad);
-
-		AdRequest adRequest = new AdRequest();
-		adRequest.addKeyword("sporting goods");
-		mAdView.loadAd(adRequest);
 	}
 }
