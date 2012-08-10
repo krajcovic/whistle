@@ -18,12 +18,7 @@ public class MenuActivity extends AdMobActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-		
-		 //Window w = activity.getWindow(); // in Activity's onCreate() for instance
-		this.getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		
+			
 		Button buttonRandom = (Button) findViewById(R.id.buttonRandom);
 		buttonRandom.setOnClickListener(new OnClickListener() {
 

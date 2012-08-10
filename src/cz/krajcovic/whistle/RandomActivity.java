@@ -4,8 +4,10 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,16 +31,18 @@ public class RandomActivity extends AdMobActivity {
 	private Chronometer chronometer;
 
 	TrainingTask trainingTask;
+	
+	PowerManager.WakeLock wl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random);
 		
-		this.getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+				| PowerManager.ON_AFTER_RELEASE, TAG);
+		
 		minText = (EditText) findViewById(R.id.editTextMin);
 		maxText = (EditText) findViewById(R.id.editTextMax);
 		startButton = (Button) findViewById(R.id.buttonStart);
@@ -89,7 +93,8 @@ public class RandomActivity extends AdMobActivity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
-				refreshAdMob();
+				wl.acquire();
+//				refreshAdMob();
 			}
 		});
 
@@ -122,6 +127,7 @@ public class RandomActivity extends AdMobActivity {
 			trainingTask.cancel(true);
 			startButton.setEnabled(true);
 			stopButton.setEnabled(false);
+			wl.release();
 		}
 	}
 }

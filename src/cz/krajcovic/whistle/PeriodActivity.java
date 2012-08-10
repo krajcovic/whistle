@@ -1,7 +1,9 @@
 package cz.krajcovic.whistle;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,8 @@ public class PeriodActivity extends AdMobActivity {
 	private Chronometer chronometer;
 
 	TrainingTask trainingTask;
+	
+	PowerManager.WakeLock wl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,10 @@ public class PeriodActivity extends AdMobActivity {
 
 		setContentView(R.layout.activity_period);
 		
-		this.getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+				| PowerManager.ON_AFTER_RELEASE, TAG);
+		
 		periodText = (EditText) findViewById(R.id.editTextPeriod);
 
 		startButton = (Button) findViewById(R.id.buttonStart);
@@ -75,7 +79,8 @@ public class PeriodActivity extends AdMobActivity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
-				refreshAdMob();
+				wl.acquire();
+//				refreshAdMob();
 			}
 		});
 
@@ -101,6 +106,7 @@ public class PeriodActivity extends AdMobActivity {
 			trainingTask.cancel(true);
 			startButton.setEnabled(true);
 			stopButton.setEnabled(false);
+			wl.release();
 		}
 	}
 }

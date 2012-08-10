@@ -1,7 +1,10 @@
 package cz.krajcovic.whistle;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
@@ -26,15 +29,18 @@ public class CycleActivity extends AdMobActivity {
 
 	TrainingTask trainingTask;
 
+	KeyguardManager mKeyGuardManager;
+
+	PowerManager.WakeLock wl;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cycle);
-		
-		this.getWindow().setFlags(
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+				| PowerManager.ON_AFTER_RELEASE, TAG);
 		activeText = (EditText) findViewById(R.id.editTextActive);
 		restText = (EditText) findViewById(R.id.editTextRest);
 		startButton = (Button) findViewById(R.id.buttonStart);
@@ -77,7 +83,8 @@ public class CycleActivity extends AdMobActivity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
-				//refreshAdMob();
+				wl.acquire();
+				// refreshAdMob();
 			}
 		});
 
@@ -88,10 +95,10 @@ public class CycleActivity extends AdMobActivity {
 			}
 
 		});
-		
+
 		refreshAdMob();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_whistle, menu);
@@ -110,6 +117,7 @@ public class CycleActivity extends AdMobActivity {
 			trainingTask.cancel(true);
 			startButton.setEnabled(true);
 			stopButton.setEnabled(false);
+			wl.release();
 		}
 	}
 }
