@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -33,6 +34,10 @@ public class RandomActivity extends AdMobActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random);
+		
+		this.getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 		minText = (EditText) findViewById(R.id.editTextMin);
 		maxText = (EditText) findViewById(R.id.editTextMax);

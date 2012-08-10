@@ -95,10 +95,14 @@ public class TrainingTask extends AsyncTask<TrainingParams, Integer, Integer> {
 		float maxVolume = (float) audioManager
 				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 		float volume = actualVolume / maxVolume;
+		
 		// Is the sound loaded already?
 		if (loaded) {
 			soundPool.play(soundID, volume, volume, 1, 0, 1f);
-			// Log.e("Test", "Played sound");
+		}
+		else
+		{
+			Log.e(TAG, "Sound not loaded.");
 		}
 	}
 

@@ -1,9 +1,9 @@
 <resources>
 
     <string name="app_name">Whistle</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_random">Random generator</string><string name="title_activity_menu">Select generator</string>
+    <string name="title_activity_random">Random generator</string>
+    <string name="title_activity_menu">Whistle generator</string>
     <string name="min_time">Min</string>
     <string name="max_time">Max</string>
     <string name="start">Start</string>

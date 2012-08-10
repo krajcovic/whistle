@@ -1,10 +1,13 @@
 package cz.krajcovic.whistle;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class MenuActivity extends AdMobActivity {
@@ -15,6 +18,11 @@ public class MenuActivity extends AdMobActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
+		
+		 //Window w = activity.getWindow(); // in Activity's onCreate() for instance
+		this.getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		
 		Button buttonRandom = (Button) findViewById(R.id.buttonRandom);
 		buttonRandom.setOnClickListener(new OnClickListener() {
@@ -47,6 +55,9 @@ public class MenuActivity extends AdMobActivity {
 		});
 		
 		refreshAdMob();
+		
+		KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE); 
+		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE); 
 
 	}
 }

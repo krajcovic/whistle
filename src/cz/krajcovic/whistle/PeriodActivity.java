@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -30,6 +31,10 @@ public class PeriodActivity extends AdMobActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_period);
+		
+		this.getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 		periodText = (EditText) findViewById(R.id.editTextPeriod);
 

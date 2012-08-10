@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -29,6 +30,10 @@ public class CycleActivity extends AdMobActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cycle);
+		
+		this.getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
+				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 		activeText = (EditText) findViewById(R.id.editTextActive);
 		restText = (EditText) findViewById(R.id.editTextRest);
@@ -72,7 +77,7 @@ public class CycleActivity extends AdMobActivity {
 				stopButton.setEnabled(true);
 				chronometer.setBase(SystemClock.elapsedRealtime());
 				chronometer.start();
-				refreshAdMob();
+				//refreshAdMob();
 			}
 		});
 
