@@ -4,7 +4,7 @@
     android:versionName="1.4" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="7"
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MenuActivity"
+            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_menu" >
             <intent-filter>
@@ -27,6 +28,7 @@
         </activity>
         <activity
             android:name=".RandomActivity"
+            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:label="@string/title_activity_random" >
@@ -38,6 +40,7 @@
         </activity>
         <activity
             android:name=".PeriodActivity"
+            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:label="@string/title_activity_period" >
@@ -49,6 +52,7 @@
         </activity>
         <activity
             android:name=".CycleActivity"
+            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:label="@string/title_activity_cycle" >
