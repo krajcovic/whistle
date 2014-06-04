@@ -9,7 +9,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -35,37 +34,41 @@ public class CycleActivity extends AdMobActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cycle);
+		super.onCreate(savedInstanceState, R.layout.activity_cycle);
+		this.setContentView(R.layout.activity_cycle);
 
-		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+		PowerManager pm = (PowerManager) this
+				.getSystemService(Context.POWER_SERVICE);
+		this.wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
 				| PowerManager.ON_AFTER_RELEASE, TAG);
-		activeText = (EditText) findViewById(R.id.editTextActive);
-		restText = (EditText) findViewById(R.id.editTextRest);
-		startButton = (Button) findViewById(R.id.buttonStart);
-		stopButton = (Button) findViewById(R.id.buttonStop);
-		stopButton.setEnabled(false);
+		this.activeText = (EditText) this.findViewById(R.id.editTextActive);
+		this.restText = (EditText) this.findViewById(R.id.editTextRest);
+		this.startButton = (Button) this.findViewById(R.id.buttonStart);
+		this.stopButton = (Button) this.findViewById(R.id.buttonStop);
+		this.stopButton.setEnabled(false);
 
-		chronometer = (Chronometer) findViewById(R.id.chronometer);
+		this.chronometer = (Chronometer) this.findViewById(R.id.chronometer);
 
-		activeText.setText(Integer.toString(30));
-		restText.setText(Integer.toString(5));
+		this.activeText.setText(Integer.toString(30));
+		this.restText.setText(Integer.toString(5));
 
-		startButton.setOnClickListener(new OnClickListener() {
+		this.startButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				int active, rest;
 				try {
-					active = activeText.getText().toString().equals("") ? 0
-							: Integer.parseInt(activeText.getText().toString());
-					rest = restText.getText().equals("") ? 0 : Integer
-							.parseInt(restText.getText().toString());
+					active = CycleActivity.this.activeText.getText().toString()
+							.equals("") ? 0 : Integer
+							.parseInt(CycleActivity.this.activeText.getText()
+									.toString());
+					rest = CycleActivity.this.restText.getText().equals("") ? 0
+							: Integer.parseInt(CycleActivity.this.restText
+									.getText().toString());
 				}
 
 				catch (NumberFormatException ex) {
 					Log.e(TAG, ex.getMessage());
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(CycleActivity.this.getApplicationContext(),
 							"Invalid min or max values.", Toast.LENGTH_SHORT)
 							.show();
 					return;
@@ -77,47 +80,48 @@ public class CycleActivity extends AdMobActivity {
 				params.setActive(active);
 				params.setRest(rest);
 
-				trainingTask = (TrainingTask) new TrainingTask()
+				CycleActivity.this.trainingTask = (TrainingTask) new TrainingTask()
 						.execute(params);
-				startButton.setEnabled(false);
-				stopButton.setEnabled(true);
-				chronometer.setBase(SystemClock.elapsedRealtime());
-				chronometer.start();
-				wl.acquire();
+				CycleActivity.this.startButton.setEnabled(false);
+				CycleActivity.this.stopButton.setEnabled(true);
+				CycleActivity.this.chronometer.setBase(SystemClock
+						.elapsedRealtime());
+				CycleActivity.this.chronometer.start();
+				CycleActivity.this.wl.acquire();
 				// refreshAdMob();
 			}
 		});
 
-		stopButton.setOnClickListener(new OnClickListener() {
+		this.stopButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				StopTask();
+				CycleActivity.this.StopTask();
 			}
 
 		});
 
-		refreshAdMob();
+//		this.refreshAdMob();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_whistle, menu);
+		this.getMenuInflater().inflate(R.menu.activity_whistle, menu);
 		return true;
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		StopTask();
+		this.StopTask();
 	}
 
 	private void StopTask() {
-		if (trainingTask != null) {
-			chronometer.stop();
-			trainingTask.cancel(true);
-			startButton.setEnabled(true);
-			stopButton.setEnabled(false);
-			wl.release();
+		if (this.trainingTask != null) {
+			this.chronometer.stop();
+			this.trainingTask.cancel(true);
+			this.startButton.setEnabled(true);
+			this.stopButton.setEnabled(false);
+			this.wl.release();
 		}
 	}
 }

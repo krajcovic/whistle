@@ -7,7 +7,6 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -26,43 +25,46 @@ public class PeriodActivity extends AdMobActivity {
 	private Chronometer chronometer;
 
 	TrainingTask trainingTask;
-	
+
 	PowerManager.WakeLock wl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState, R.layout.activity_period);
 
-		setContentView(R.layout.activity_period);
-		
-		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+		this.setContentView(R.layout.activity_period);
+
+		PowerManager pm = (PowerManager) this
+				.getSystemService(Context.POWER_SERVICE);
+		this.wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
 				| PowerManager.ON_AFTER_RELEASE, TAG);
-		
-		periodText = (EditText) findViewById(R.id.editTextPeriod);
 
-		startButton = (Button) findViewById(R.id.buttonStart);
-		stopButton = (Button) findViewById(R.id.buttonStop);
-		stopButton.setEnabled(false);
+		this.periodText = (EditText) this.findViewById(R.id.editTextPeriod);
 
-		chronometer = (Chronometer) findViewById(R.id.chronometer);
+		this.startButton = (Button) this.findViewById(R.id.buttonStart);
+		this.stopButton = (Button) this.findViewById(R.id.buttonStop);
+		this.stopButton.setEnabled(false);
 
-		periodText.setText(Integer.toString(20));
+		this.chronometer = (Chronometer) this.findViewById(R.id.chronometer);
 
-		startButton.setOnClickListener(new OnClickListener() {
+		this.periodText.setText(Integer.toString(20));
+
+		this.startButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				int period;
 				try {
-					period = periodText.getText().toString().equals("") ? 0
-							: Integer.parseInt(periodText.getText().toString());
+					period = PeriodActivity.this.periodText.getText()
+							.toString().equals("") ? 0 : Integer
+							.parseInt(PeriodActivity.this.periodText.getText()
+									.toString());
 
 				}
 
 				catch (NumberFormatException ex) {
 					Log.e(TAG, ex.getMessage());
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(PeriodActivity.this.getApplicationContext(),
 							"Invalid min or max values.", Toast.LENGTH_SHORT)
 							.show();
 					return;
@@ -73,40 +75,41 @@ public class PeriodActivity extends AdMobActivity {
 				params.setActivity((Activity) v.getContext());
 				params.setPeriod(period);
 
-				trainingTask = (TrainingTask) new TrainingTask()
+				PeriodActivity.this.trainingTask = (TrainingTask) new TrainingTask()
 						.execute(params);
-				startButton.setEnabled(false);
-				stopButton.setEnabled(true);
-				chronometer.setBase(SystemClock.elapsedRealtime());
-				chronometer.start();
-				wl.acquire();
-//				refreshAdMob();
+				PeriodActivity.this.startButton.setEnabled(false);
+				PeriodActivity.this.stopButton.setEnabled(true);
+				PeriodActivity.this.chronometer.setBase(SystemClock
+						.elapsedRealtime());
+				PeriodActivity.this.chronometer.start();
+				PeriodActivity.this.wl.acquire();
+				// refreshAdMob();
 			}
 		});
 
-		stopButton.setOnClickListener(new OnClickListener() {
+		this.stopButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				StopTask();
+				PeriodActivity.this.StopTask();
 			}
 		});
-		
-		refreshAdMob();
+
+//		this.refreshAdMob();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		StopTask();
+		this.StopTask();
 	}
 
 	private void StopTask() {
-		if (trainingTask != null) {
-			chronometer.stop();
-			trainingTask.cancel(true);
-			startButton.setEnabled(true);
-			stopButton.setEnabled(false);
-			wl.release();
+		if (this.trainingTask != null) {
+			this.chronometer.stop();
+			this.trainingTask.cancel(true);
+			this.startButton.setEnabled(true);
+			this.stopButton.setEnabled(false);
+			this.wl.release();
 		}
 	}
 }

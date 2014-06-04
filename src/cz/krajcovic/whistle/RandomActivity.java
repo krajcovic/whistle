@@ -1,22 +1,20 @@
 package cz.krajcovic.whistle;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.Toast;
+
+//import com.google.ads.AdView;
 
 public class RandomActivity extends AdMobActivity {
 
@@ -31,41 +29,46 @@ public class RandomActivity extends AdMobActivity {
 	private Chronometer chronometer;
 
 	TrainingTask trainingTask;
-	
+
 	PowerManager.WakeLock wl;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_random);
-		
-		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
+		super.onCreate(savedInstanceState, R.layout.activity_random);
+		this.setContentView(R.layout.activity_random);
+
+		PowerManager pm = (PowerManager) this
+				.getSystemService(Context.POWER_SERVICE);
+		this.wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK
 				| PowerManager.ON_AFTER_RELEASE, TAG);
-		
-		minText = (EditText) findViewById(R.id.editTextMin);
-		maxText = (EditText) findViewById(R.id.editTextMax);
-		startButton = (Button) findViewById(R.id.buttonStart);
-		stopButton = (Button) findViewById(R.id.buttonStop);
-		stopButton.setEnabled(false);
 
-		chronometer = (Chronometer) findViewById(R.id.chronometer);
+		this.minText = (EditText) this.findViewById(R.id.editTextMin);
+		this.maxText = (EditText) this.findViewById(R.id.editTextMax);
+		this.startButton = (Button) this.findViewById(R.id.buttonStart);
+		this.stopButton = (Button) this.findViewById(R.id.buttonStop);
+		this.stopButton.setEnabled(false);
 
-		minText.setText(Integer.toString(1));
-		maxText.setText(Integer.toString(10));
+		this.chronometer = (Chronometer) this.findViewById(R.id.chronometer);
 
-		startButton.setOnClickListener(new OnClickListener() {
+		this.minText.setText(Integer.toString(1));
+		this.maxText.setText(Integer.toString(10));
+
+		this.startButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				int min, max;
 				try {
-					min = minText.getText().toString().equals("") ? 0 : Integer
-							.parseInt(minText.getText().toString());
-					max = maxText.getText().equals("") ? 0 : Integer
-							.parseInt(maxText.getText().toString());
+					min = RandomActivity.this.minText.getText().toString()
+							.equals("") ? 0 : Integer
+							.parseInt(RandomActivity.this.minText.getText()
+									.toString());
+					max = RandomActivity.this.maxText.getText().equals("") ? 0
+							: Integer.parseInt(RandomActivity.this.maxText
+									.getText().toString());
 
 					if (min >= max) {
-						Toast.makeText(getApplicationContext(),
+						Toast.makeText(
+								RandomActivity.this.getApplicationContext(),
 								"Max have to bigger than min.",
 								Toast.LENGTH_SHORT).show();
 						return;
@@ -75,7 +78,7 @@ public class RandomActivity extends AdMobActivity {
 
 				catch (NumberFormatException ex) {
 					Log.e(TAG, ex.getMessage());
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(RandomActivity.this.getApplicationContext(),
 							"Invalid min or max values.", Toast.LENGTH_SHORT)
 							.show();
 					return;
@@ -87,47 +90,48 @@ public class RandomActivity extends AdMobActivity {
 				params.setMin(min);
 				params.setMax(max);
 
-				trainingTask = (TrainingTask) new TrainingTask()
+				RandomActivity.this.trainingTask = (TrainingTask) new TrainingTask()
 						.execute(params);
-				startButton.setEnabled(false);
-				stopButton.setEnabled(true);
-				chronometer.setBase(SystemClock.elapsedRealtime());
-				chronometer.start();
-				wl.acquire();
-//				refreshAdMob();
+				RandomActivity.this.startButton.setEnabled(false);
+				RandomActivity.this.stopButton.setEnabled(true);
+				RandomActivity.this.chronometer.setBase(SystemClock
+						.elapsedRealtime());
+				RandomActivity.this.chronometer.start();
+				RandomActivity.this.wl.acquire();
+				// refreshAdMob();
 			}
 		});
 
-		stopButton.setOnClickListener(new OnClickListener() {
+		this.stopButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				StopTask();
+				RandomActivity.this.StopTask();
 			}
 
 		});
-		
-		refreshAdMob();
+
+//		this.refreshAdMob();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_whistle, menu);
+		this.getMenuInflater().inflate(R.menu.activity_whistle, menu);
 		return true;
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		StopTask();
+		this.StopTask();
 	}
 
 	private void StopTask() {
-		if (trainingTask != null) {
-			chronometer.stop();
-			trainingTask.cancel(true);
-			startButton.setEnabled(true);
-			stopButton.setEnabled(false);
-			wl.release();
+		if (this.trainingTask != null) {
+			this.chronometer.stop();
+			this.trainingTask.cancel(true);
+			this.startButton.setEnabled(true);
+			this.stopButton.setEnabled(false);
+			this.wl.release();
 		}
 	}
 }

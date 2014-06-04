@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.krajcovic.whistle"
     android:versionCode="4"
-    android:versionName="1.4" >
+    android:versionName="4" >
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,11 +15,15 @@
         android:icon="@drawable/ic_whistler"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".MenuActivity"
-            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_menu"
+            android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +32,10 @@
         </activity>
         <activity
             android:name=".RandomActivity"
-            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
-            android:label="@string/title_activity_random" >
+            android:label="@string/title_activity_random"
+            android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_EDIT" />
 
@@ -40,10 +44,10 @@
         </activity>
         <activity
             android:name=".PeriodActivity"
-            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
-            android:label="@string/title_activity_period" >
+            android:label="@string/title_activity_period"
+            android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_EDIT" />
 
@@ -52,19 +56,20 @@
         </activity>
         <activity
             android:name=".CycleActivity"
-            android:screenOrientation="nosensor"
             android:configChanges="orientation|screenSize"
             android:exported="false"
-            android:label="@string/title_activity_cycle" >
+            android:label="@string/title_activity_cycle"
+            android:screenOrientation="nosensor" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_EDIT" />
 
                 <category android:name="android.intent.category.CATEGORY_BROWSABLE" />
             </intent-filter>
         </activity>
+      
         <!-- Ad network-specific activity packaged in the SDK. -->
         <activity
-            android:name="com.google.ads.AdActivity"
+            android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
     </application>
 

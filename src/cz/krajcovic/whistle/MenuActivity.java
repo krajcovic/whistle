@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.Button;
 
 public class MenuActivity extends AdMobActivity {
@@ -16,43 +15,44 @@ public class MenuActivity extends AdMobActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);
-			
-		Button buttonRandom = (Button) findViewById(R.id.buttonRandom);
+		super.onCreate(savedInstanceState, R.layout.activity_menu);
+		this.setContentView(R.layout.activity_menu);
+
+		Button buttonRandom = (Button) this.findViewById(R.id.buttonRandom);
 		buttonRandom.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(MenuActivity.this,
 						RandomActivity.class);
-				startActivity(intent);
+				MenuActivity.this.startActivity(intent);
 			}
 		});
 
-		Button buttonPeriod = (Button) findViewById(R.id.buttonPeriod);
+		Button buttonPeriod = (Button) this.findViewById(R.id.buttonPeriod);
 		buttonPeriod.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(MenuActivity.this,
 						PeriodActivity.class);
-				startActivity(intent);
+				MenuActivity.this.startActivity(intent);
 			}
 		});
 
-		Button buttonCycle = (Button) findViewById(R.id.buttonCycle);
+		Button buttonCycle = (Button) this.findViewById(R.id.buttonCycle);
 		buttonCycle.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(MenuActivity.this,
 						CycleActivity.class);
-				startActivity(intent);
+				MenuActivity.this.startActivity(intent);
 			}
 		});
-		
-		refreshAdMob();
-		
-		KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE); 
-		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE); 
+
+//		this.refreshAdMob();
+
+		KeyguardManager keyguardManager = (KeyguardManager) this
+				.getSystemService(Activity.KEYGUARD_SERVICE);
+		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
 
 	}
 }
